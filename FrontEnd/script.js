@@ -35,6 +35,11 @@ function addButton(categories) {
   filters();
 }
 
+function removeActiveFilter() {
+  const activeFilter = document.querySelector(".filterButtons .active");
+  activeFilter.classList.remove("active");
+}
+
 function filters() {
   const buttons = document.getElementsByClassName("filterButtons__button");
 
@@ -43,12 +48,10 @@ function filters() {
       const filterButton = itemArray.filter((element) => {
         return element.categoryId === i;
       });
-      buttons[0].classList.remove("active");
-      buttons[1].classList.remove("active");
-      buttons[2].classList.remove("active");
-      buttons[3].classList.remove("active");
+
+      removeActiveFilter();
+
       buttons[i].classList.add("active");
-      console.log(filterButton);
 
       document.querySelector(".gallery").innerHTML = "";
       addGallery(filterButton);
