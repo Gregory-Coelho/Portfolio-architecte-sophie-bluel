@@ -108,6 +108,10 @@ section {
 body {
   line-height: 1;
 }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 ol,
 ul {
   list-style: none;
@@ -222,7 +226,6 @@ li:hover {
   font-size: 16px;
   line-height: 19px;
   text-align: center;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -232,6 +235,7 @@ li:hover {
   padding: 9px 2%;
   background-color: transparent;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .active {
@@ -250,6 +254,7 @@ li:hover {
 .gallery img {
   width: 100%;
 }
+
 #contact {
   width: 50%;
   margin: auto;
@@ -296,4 +301,51 @@ footer nav ul {
   display: flex;
   justify-content: flex-end;
   margin: 2em;
+}
+
+html {
+  min-height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#login {
+  width: 50%;
+  margin: auto;
+  margin-top: 2%;
+}
+
+#login > * {
+  text-align: center;
+}
+
+#login h2 {
+  margin-bottom: 20px;
+}
+
+#login form {
+  text-align: left;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+#login input {
+  height: 50px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#login label {
+  margin: 2em 0 1em 0;
+}
+
+#login a {
+  width: 50%;
+  text-decoration: underline;
 }
