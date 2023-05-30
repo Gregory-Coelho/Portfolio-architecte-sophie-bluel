@@ -346,6 +346,6 @@ body {
 }
 
 #login a {
-  width: 50%;
+  margin: auto;
   text-decoration: underline;
 }
