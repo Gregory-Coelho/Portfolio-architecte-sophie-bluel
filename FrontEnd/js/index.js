@@ -1,7 +1,11 @@
 let itemArray;
 
+const apiRoutes = {
+  works: "http://localhost:5678/api/works",
+  categories: "http://localhost:5678/api/categories",
+};
 async function fetchDataWorks() {
-  const response = await fetch("http://localhost:5678/api/works");
+  const response = await fetch(apiRoutes.works);
   const dataWorks = await response.json();
   addGallery(dataWorks);
   itemArray = dataWorks;
@@ -10,7 +14,7 @@ async function fetchDataWorks() {
 fetchDataWorks();
 
 async function fetchDataCategories() {
-  const response = await fetch("http://localhost:5678/api/categories");
+  const response = await fetch(apiRoutes.categories);
   const dataCategories = await response.json();
   addButton(dataCategories);
 }
