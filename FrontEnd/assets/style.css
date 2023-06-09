@@ -350,9 +350,14 @@ body {
   text-decoration: underline;
 }
 
+.errorMsg {
+  margin-left: 40px;
+  color: rgb(212, 37, 37);
+  font-weight: 600;
+}
+
 .banner {
-  /* display: none; */
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   background: black;
@@ -391,6 +396,29 @@ body {
   text-align: center;
 }
 
+.modify-container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 28%;
+  flex-direction: row;
+  margin-top: 15px;
+  margin-bottom: 19px;
+}
+
+.modify {
+  display: flex;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  border: none;
+  background-color: rgb(255, 255, 255);
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* modifier projets */
 .projets-container {
   display: flex;
   justify-content: center;
@@ -399,7 +427,7 @@ body {
 }
 
 .modifier-projets-container {
-  /* display: none; */
+  display: none;
   justify-content: center;
   align-items: center;
   flex-direction: row;
@@ -450,4 +478,17 @@ body {
   cursor: pointer;
   background-color: #fff;
   color: #000000;
+}
+
+.modalTitle {
+  margin-top: 40px;
+  margin-bottom: 36px;
+  font-weight: 500;
+  font-family: Work Sans;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: black;
 }
