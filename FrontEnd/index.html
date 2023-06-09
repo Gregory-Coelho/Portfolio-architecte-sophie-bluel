@@ -11,12 +11,19 @@
       rel="stylesheet"
     />
     <meta name="description" content="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/style.css" />
     <script
       src="https://kit.fontawesome.com/6510cf513e.js"
       crossorigin="anonymous"
     ></script>
   </head>
+
   <body>
     <div class="modal-container">
       <div class="modal">
@@ -29,33 +36,41 @@
         <p class="!!! delete galerie">Supprimer la galerie</p> -->
       </div>
     </div>
+
     <div class="banner">
       <div class="mode-edition-top">
         <i
           class="fa-regular fa-pen-to-square"
           style="color: white; cursor: pointer"
         ></i>
+
         <div class="text-top">Mode édition</div>
         <button type="submit" class="publish">publiez les changements</button>
       </div>
     </div>
+
     <header>
-      <a href="./index.html">
-        <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
-      </a>
+      <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
       <nav>
         <ul>
-          <li><a href="#">projets</a></li>
-          <li><a href="#">contact</a></li>
-          <li><a id="login" href="./login.html">login</a></li>
+          <li><a class="no-underline" href="#portfolio"> projets</a></li>
+          <li><a class="no-underline" href="#contact"> contact</a></li>
+          <li>
+            <a class="no-underline" id="log" href="./login.html">login</a>
+          </li>
           <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
         </ul>
       </nav>
     </header>
+
     <main>
       <section id="introduction">
         <figure>
           <img src="./assets/images/sophie-bluel.png" alt="Sophie Bluel Logo" />
+          <div class="modify-container">
+            <i class="fa-regular fa-pen-to-square" style="cursor: pointer"></i>
+            <div class="modify">modifier</div>
+          </div>
         </figure>
         <article>
           <h2>Designer d'espace</h2>
@@ -76,7 +91,6 @@
           </p>
         </article>
       </section>
-
       <section id="portfolio">
         <div class="projets-container">
           <h2>Mes Projets</h2>
@@ -90,7 +104,6 @@
         </div>
         <div class="gallery"></div>
       </section>
-
       <section id="contact">
         <h2>Contact</h2>
         <p>Vous avez un projet ? Discutons-en !</p>
@@ -112,7 +125,7 @@
           <li>Mentions Légales</li>
         </ul>
       </nav>
-      <script src="./js/script.js"></script>
     </footer>
+    <script src="./js/script.js"></script>
   </body>
 </html>
