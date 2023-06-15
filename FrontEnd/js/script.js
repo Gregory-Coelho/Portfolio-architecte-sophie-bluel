@@ -1,3 +1,4 @@
+// Fonction asynchrone pour récupérer les données depuis une URL en utilisant fetch.
 async function fetchData(url) {
   try {
     const response = await fetch(url);
@@ -11,6 +12,7 @@ async function fetchData(url) {
   }
 }
 
+// Fonction pour ajouter une galerie d'éléments à partir des données fournies.
 function addGallery(data, gallery) {
   data.forEach((element) => {
     const figure = `<figure>
@@ -21,6 +23,7 @@ function addGallery(data, gallery) {
   });
 }
 
+//Fonction pour ajouter des boutons de catégorie à partir des données fournies.
 function addBtn(categories, allBtn) {
   categories.forEach((element) => {
     const button = `<button class="btn" id=${element.id}>${element.name}</button>`;
@@ -28,11 +31,13 @@ function addBtn(categories, allBtn) {
   });
 }
 
+// Fonction pour initialiser les filtres de la galerie.
 function initializeFilters(data) {
   const btns = document.getElementsByClassName("btn");
   const gallery = document.querySelector(".gallery");
   let elementArray = data;
 
+  // Gère l'événement de clic sur un filtre de catégorie.
   const handleFilterClick = (categoryId) => {
     const filterBtn = elementArray.filter((element) => {
       return element.categoryId === categoryId;
@@ -47,6 +52,7 @@ function initializeFilters(data) {
     addGallery(filterBtn, gallery);
   };
 
+  // Gère le clic sur le bouton "Tous"
   btns[0].addEventListener("click", () => {
     const filterTous = elementArray.filter((element) => element.categoryId);
     Array.from(btns).forEach((btn) => {
@@ -58,6 +64,7 @@ function initializeFilters(data) {
     addGallery(filterTous, gallery);
   });
 
+  // Gère les clics sur les autres boutons de catégorie
   for (let i = 1; i < btns.length; i++) {
     btns[i].addEventListener("click", () => {
       handleFilterClick(i);
@@ -65,6 +72,7 @@ function initializeFilters(data) {
   }
 }
 
+// Fonction pour gérer le mode d'édition en fonction de la connexion de l'utilisateur.
 function editMode() {
   const log = document.querySelector("#log");
   const banner = document.querySelector(".banner");
@@ -89,17 +97,20 @@ function editMode() {
   }
 }
 
+// Gère le clic sur le bouton de connexion/déconnexion
 log.addEventListener("click", () => {
   localStorage.removeItem("login");
   localStorage.removeItem("token");
   log.innerText = "login";
 });
 
+// Fonction pour ouvrir la première modale.
 function openModal1() {
   const modal1 = document.querySelector(".modal-container");
   modal1.classList.add("active");
 }
 
+// Fonction pour fermer la première (et la deuxième) modale.
 function closeModal1() {
   const modal1 = document.querySelector(".modal-container");
   modal1.classList.remove("active");
@@ -108,20 +119,25 @@ function closeModal1() {
   modal2.classList.remove("active");
 }
 
+// Fonction pour initialiser les modales et les actions liées.
 function initializeModals() {
   const modalOpen = document.querySelectorAll(".modal-open");
   const modalClose = document.querySelectorAll(".modal-close");
   const addPicture = document.querySelector(".addpicture");
   const arrowBack = document.querySelector(".arrowback");
 
+  // Ajoute l'événement de clic pour ouvrir la première modale
   modalOpen.forEach((trigger) => trigger.addEventListener("click", openModal1));
 
+  // Ajoute l'événement de clic pour fermer les modales
   modalClose.forEach((trigger) =>
     trigger.addEventListener("click", closeModal1)
   );
 
+  // Ajoute l'événement de clic pour revenir à la première modale
   arrowBack.addEventListener("click", openModal1);
 
+  // Ajoute l'événement de clic pour afficher la deuxième modale
   addPicture.addEventListener("click", () => {
     const modal2 = document.querySelector(".modal-container2");
     const modal1 = document.querySelector(".modal-container");
@@ -130,6 +146,7 @@ function initializeModals() {
   });
 }
 
+// Fonction pour ajouter une galerie d'éléments dans la deuxième modale.
 function addGalleryModale(data) {
   const imgContainer = document.querySelector(".img-container");
 
@@ -142,6 +159,7 @@ function addGalleryModale(data) {
     imgContainer.innerHTML += figure;
   });
 
+  // Ajoute l'événement de clic pour supprimer un élément
   const deleteTrash = document.querySelectorAll(".logobin");
   deleteTrash.forEach((element) => {
     element.addEventListener("click", () => {
@@ -150,6 +168,7 @@ function addGalleryModale(data) {
   });
 }
 
+// Fonction asynchrone pour supprimer un élément en utilisant l'API DELETE.
 async function fetchDeleteWorks(id) {
   const token = localStorage.token;
 
@@ -166,6 +185,7 @@ async function fetchDeleteWorks(id) {
   }
 }
 
+// Fonction pour initialiser l'aperçu de l'image dans la deuxième modale et la soumission du formulaire.
 function initializeImagePreview() {
   const addPicModal = document.querySelector(".input-addpic");
   const previewImg = document.querySelector(".import-pictures");
@@ -179,6 +199,7 @@ function initializeImagePreview() {
   let inputTitle = "";
   let inputCategory = "";
 
+  // Écoute l'événement de changement de l'input pour la sélection de l'image
   addPicModal.addEventListener("input", (e) => {
     imgPreview = e.target.files[0];
     const img = URL.createObjectURL(e.target.files[0]);
@@ -186,14 +207,17 @@ function initializeImagePreview() {
     previewImg.style.visibility = "visible";
   });
 
+  // Écoute l'événement de saisie pour le champ du titre
   addTitle.addEventListener("input", (e) => {
     inputTitle = e.target.value;
   });
 
+  // Écoute l'événement de saisie pour le champ de la catégorie
   addCategory.addEventListener("input", (e) => {
     inputCategory = e.target.selectedIndex;
   });
 
+  // Écoute l'événement de changement du formulaire
   form.addEventListener("change", () => {
     if (imgPreview !== "" && inputTitle !== "" && inputCategory !== "") {
       submit.style.background = "#1D6154";
@@ -203,13 +227,16 @@ function initializeImagePreview() {
     }
   });
 
+  // Écoute l'événement de soumission du formulaire
   form.addEventListener("submit", handleFormSubmit);
 
+  // Fonction de gestion de la soumission du formulaire.
   function handleFormSubmit(e) {
     e.preventDefault();
     submitForm();
   }
 
+  // Fonction asynchrone pour soumettre le formulaire en utilisant l'API POST.
   async function submitForm() {
     if (!imgPreview || !inputTitle || !inputCategory) {
       msgError.innerText = "Veuillez remplir tous les champs.";
@@ -257,10 +284,12 @@ function initializeImagePreview() {
   }
 }
 
+// Fonction asynchrone pour initialiser l'application.
 async function initializeApp() {
   const gallery = document.querySelector(".gallery");
   const allBtn = document.querySelector(".allBtn");
 
+  // Récupération des données des éléments et des catégories depuis l'API
   try {
     const data = await fetchData("http://localhost:5678/api/works");
     const categories = await fetchData("http://localhost:5678/api/categories");
