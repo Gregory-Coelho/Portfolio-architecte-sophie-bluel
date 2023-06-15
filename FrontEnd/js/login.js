@@ -1,11 +1,17 @@
 const submit = document.querySelector('input[type="submit"]');
+const errorMsg = document.querySelector(".erreur-msg");
 
-submit.addEventListener("click", function (e) {
+submit.addEventListener("click", async function (e) {
   e.preventDefault();
-  login();
+  try {
+    await login();
+    window.location.href = "./index.html";
+  } catch (err) {
+    console.log(err);
+    errorMsg.innerText = "Erreur dans l’identifiant ou le mot de passe";
+  }
 });
 
-// objectif de récupérer les credentials de l'utilisateur dans la page
 function pageCredentials() {
   const fields = {
     email: "email",
@@ -13,7 +19,6 @@ function pageCredentials() {
   };
   const email = document.getElementById(fields.email).value;
   const password = document.getElementById(fields.password).value;
-
   return { email, password };
 }
 
@@ -26,21 +31,20 @@ async function login() {
   const url = "http://localhost:5678/api/users/login";
   const creds = pageCredentials();
 
-  await fetch(url, {
+  const response = await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
     body: JSON.stringify(creds),
-  })
-    .then(async (res) => {
-      return await res.json();
-    })
-    .then((json) => {
-      console.log("Je suis log et j'ai la réponse en JSON");
-      saveToken(json);
-      // redirect to index page when everything went well
-      window.location.href = "./index.html";
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  });
+
+  if (!response.ok) {
+    throw new Error("Erreur lors de la requête de connexion");
+  }
+
+  const json = await response.json();
+  console.log("Je suis log et j'ai la réponse en JSON");
+  saveToken(json);
 }
