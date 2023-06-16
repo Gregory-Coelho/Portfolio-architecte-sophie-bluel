@@ -83,7 +83,7 @@ function editMode() {
   const projetsContainer = document.querySelector(".projets-container");
   const allBtn = document.querySelector(".allBtn");
 
-  if (localStorage.login) {
+  if (!!localStorage.token) {
     banner.style.display = "flex";
     log.innerText = "logout";
     modifierContainer.style.display = "flex";
@@ -108,6 +108,9 @@ log.addEventListener("click", () => {
 function openModal1() {
   const modal1 = document.querySelector(".modal-container");
   modal1.classList.add("active");
+
+  const modal2 = document.querySelector(".modal-container2");
+  modal2.classList.remove("active");
 }
 
 // Fonction pour fermer la première (et la deuxième) modale.
@@ -149,7 +152,6 @@ function initializeModals() {
 // Fonction pour ajouter une galerie d'éléments dans la deuxième modale.
 function addGalleryModale(data) {
   const imgContainer = document.querySelector(".img-container");
-
   data.forEach((element) => {
     const figure = `<figure class="element-modal">
       <img class="logobin" id="${element.id}" src="./assets/icons/bin.svg" alt="">
@@ -171,6 +173,7 @@ function addGalleryModale(data) {
 // Fonction asynchrone pour supprimer un élément en utilisant l'API DELETE.
 async function fetchDeleteWorks(id) {
   const token = localStorage.token;
+  const gallery = document.querySelector(".gallery");
 
   try {
     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
@@ -181,11 +184,19 @@ async function fetchDeleteWorks(id) {
       },
     });
 
+    const data = await fetchData("http://localhost:5678/api/works");
+
     // Récupération de l'élément logobin, et suppression de son parent figure
     const logobinElement = document.getElementById(id);
     const itemToRemove = logobinElement.closest("figure");
-
     itemToRemove.remove();
+
+    console.log({ response });
+
+    gallery.innerHTML = ""; // Clear gallery
+    addGallery(data, gallery);
+
+    console.log({ data2: data });
   } catch (error) {
     console.log("Il y a eu une erreur lors de la suppression : " + error);
   }
@@ -244,6 +255,8 @@ function initializeImagePreview() {
 
   // Fonction asynchrone pour soumettre le formulaire en utilisant l'API POST.
   async function submitForm() {
+    const gallery = document.querySelector(".gallery");
+
     if (!imgPreview || !inputTitle || !inputCategory) {
       msgError.innerText = "Veuillez remplir tous les champs.";
       msgError.style.color = "red";
@@ -270,8 +283,12 @@ function initializeImagePreview() {
         body: formData,
       });
 
+      const data = await fetchData("http://localhost:5678/api/works");
+
       if (response.ok) {
         console.log("Formulaire soumis avec succès !");
+        gallery.innerHTML = ""; // Clear gallery
+        addGallery(data, gallery);
         closeModal1();
       } else {
         msgError.innerText = "Erreur lors de la soumission du formulaire.";
