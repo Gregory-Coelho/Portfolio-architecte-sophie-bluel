@@ -180,6 +180,12 @@ async function fetchDeleteWorks(id) {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    // Récupération de l'élément logobin, et suppression de son parent figure
+    const logobinElement = document.getElementById(id);
+    const itemToRemove = logobinElement.closest("figure");
+
+    itemToRemove.remove();
   } catch (error) {
     console.log("Il y a eu une erreur lors de la suppression : " + error);
   }
